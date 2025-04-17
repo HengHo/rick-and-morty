@@ -1,0 +1,8 @@
+{
+  "/api/character/route": "app/api/character/route.js",
+  "/episode/page": "app/episode/page.js",
+  "/episode/[id]/page": "app/episode/[id]/page.js",
+  "/character/page": "app/character/page.js",
+  "/character/[id]/page": "app/character/[id]/page.js",
+  "/location/[id]/page": "app/location/[id]/page.js"
+}
