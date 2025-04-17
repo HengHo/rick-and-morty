@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, useMediaQuery, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import {
+  DataGrid,
+  GridColDef,
+  GridRenderCellParams,
+  GridPaginationModel,
+} from '@mui/x-data-grid';
 
 type Episode = {
   id: number;
@@ -18,7 +23,11 @@ const EpisodeTable: React.FC<EpisodeCardProps> = ({ data }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  // ถ้าเป็นมือถือ ให้แสดงแค่บางคอลัมน์
+  const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({
+    page: 0,
+    pageSize: 20,
+  });
+
   const columns: GridColDef[] = [
     {
       field: 'id',
@@ -62,7 +71,7 @@ const EpisodeTable: React.FC<EpisodeCardProps> = ({ data }) => {
       align: 'center',
       headerAlign: 'center',
     },
-  ].filter(Boolean) as GridColDef[]; // filter null ออกจาก array
+  ].filter(Boolean) as GridColDef[];
 
   return (
     <Box
@@ -77,8 +86,10 @@ const EpisodeTable: React.FC<EpisodeCardProps> = ({ data }) => {
       <DataGrid
         rows={data}
         columns={columns}
-        pageSize={20}
-        rowsPerPageOptions={[20]}
+        pagination
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[20]}
         disableColumnMenu
         sx={{
           backgroundColor: '#121212',
@@ -95,7 +106,7 @@ const EpisodeTable: React.FC<EpisodeCardProps> = ({ data }) => {
             borderBottom: '1px solid #333',
           },
           '& .MuiDataGrid-footerContainer': {
-            display: "none",
+            display: 'none',
             backgroundColor: '#121212',
             color: '#aaa',
           },
