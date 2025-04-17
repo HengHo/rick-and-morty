@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, useMediaQuery, Link } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 
 type Episode = {
   id: number;
@@ -32,7 +32,7 @@ const EpisodeTable: React.FC<EpisodeCardProps> = ({ data }) => {
       headerName: 'NAME',
       flex: 1,
       minWidth: 150,
-      renderCell: (params) => (
+      renderCell: (params: GridRenderCellParams<Episode>) => (
         <Link
           href={`/episode/${params.row.id}`}
           style={{
